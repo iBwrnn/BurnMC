@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Burn MC - Minecraft Survival Server">
+    <title>Burn MC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <style>
+        /* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease-out;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    padding-top: 90px; /* For fixed header */
+    transition: all 0.4s ease;
+    line-height: 1.6;
+    font-size: 16px;
+    height: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1f1f1f;
+    z-index: 10;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: slideIn 1s ease-out;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #ff4747;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(255, 71, 71, 0.6);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.15);
+    color: #ff7070;
+}
+
+.navigation ul {
+    display: flex;
+    list-style-type: none;
+}
+
+.navigation ul li {
+    margin-left: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #eaeaea;
+    font-size: 1.3rem;
+    font-weight: 700;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff4747;
+    letter-spacing: 2px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 3px;
+    width: 100%;
+    background-color: #ff4747;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-out;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    background: url('background-image.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: #fff;
+    padding: 0 20px;
+    box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.8);
+    animation: heroIn 1.5s ease-out;
+}
+
+.hero-title {
+    font-size: 6rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.9);
+    animation: fadeIn 1.5s ease-out;
+}
+
+.hero-description {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    animation: fadeIn 2s ease-out;
+}
+
+.cta-button {
+    padding: 20px 50px;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #ff4747, #e02e2e);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cta-button:hover {
+    background: linear-gradient(45deg, #e02e2e, #ff4747);
+    transform: scale(1.15);
+    box-shadow: 0 12px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Announcement Section */
+.announcements {
+    padding: 100px 20px;
+    background-color: #181818;
+    text-align: center;
+    animation: slideUp 1.5s ease-in-out;
+    backdrop-filter: blur(5px);
+}
+
+.announcement-item {
+    background: rgba(0, 0, 0, 0.6);
+    margin: 20px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.announcement-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 50px rgba(0, 0, 0, 0.8);
+}
+
+.announcement-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ff4747;
+    margin-bottom: 20px;
+}
+
+.announcement-description {
+    font-size: 1.4rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+/* Server Status Section */
+.server-status {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #1b1b1b;
+    box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 2s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.server-ip {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ff4747;
+    margin-bottom: 20px;
+}
+
+/* Footer */
+.footer {
+    padding: 30px 20px;
+    background-color: #101010;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 4.5rem;
+    }
+
+    .cta-button {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+    }
+
+    .navigation ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navigation ul li {
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+
+    .announcement-item {
+        padding: 20px;
+    }
+
+    .announcement-title {
+        font-size: 2rem;
+    }
+
+    .announcement-description {
+        font-size: 1.1rem;
+    }
+}
+
+/* Survival Section */
+.survival {
+    background: #1f1f1f;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    animation: fadeIn 2s ease-out;
+}
+
+.survival::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('survival-background.jpg') no-repeat center center/cover;
+    opacity: 0.5;
+    z-index: -1;
+    filter: blur(10px);
+}
+
+.survival h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ff4747;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8);
+    animation: slideIn 1s ease-out;
+}
+
+.survival p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    color: #ddd;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.survival .cta-button {
+    padding: 18px 50px;
+    font-size: 1.6rem;
+    background: linear-gradient(45deg, #ff4747, #e02e2e);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+}
+
+.survival .cta-button:hover {
+    background: linear-gradient(45deg, #e02e2e, #ff4747);
+    transform: scale(1.1);
+    box-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Burn MC</h1>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#announcements" class="nav-link">Announcements</a></li>
+                    <li><a href="#server-status" class="nav-link">Server Status</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title">Welcome to Burn MC</h2>
+            <p class="hero-description">A world of endless adventure and survival awaits!</p>
+            <button class="cta-button" onclick="window.location.href='#announcements'">Join Now</button>
+        </div>
+    </section>
+
+    <!-- Announcements -->
+    <section id="announcements" class="announcements">
+        <h2 class="section-title">Latest Announcements</h2>
+        <div class="announcement-item">
+            <h3 class="announcement-title">New Update: Version 1.9</h3>
+            <p class="announcement-description">We've added new exciting features to Burn MC. Check them out now!</p>
+        </div>
+        <div class="announcement-item">
+            <h3 class="announcement-title">Maintenance Scheduled</h3>
+            <p class="announcement-description">Scheduled maintenance on January 15th. Be prepared for the downtime!</p>
+        </div>
+    </section>
+
+    <!-- Server Status -->
+    <section id="server-status" class="server-status">
+        <h2 class="section-title">Server Status</h2>
+        <p>Server IP: <span class="server-ip">mc.burnmc.ct.ws</span></p>
+        <div class="mcstatus-widget">
+            <img src="https://api.mcstatus.io/v2/widget/java/mc.burnmc.ct.ws?dark=true&rounded=true&timeout=5" alt="Server Status Widget" />
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Burn MC - All rights reserved</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
